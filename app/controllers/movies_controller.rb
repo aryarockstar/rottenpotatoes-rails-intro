@@ -20,20 +20,20 @@ class MoviesController < ApplicationController
       @selected_ratings = @all_ratings
     end
     val = params[:sort].to_s
-    if ((val == "title" ) || (session[:sort]=="title" && val!="release_date"))
+    if ((val == "title" ) || (session[:sort] == "title" && val != "release_date"))
 			if (params[:ratings])
         @movies = Movie.where(:rating => @selected_ratings).order(:title)
         session[:ratings] = params[:ratings]
 				@selected_ratings = params[:ratings].keys
-				if(session[:sort]=="title" && val!="title")
-					redirect_to movies_path(:sort => session[:sort],:ratings => params[:ratings])
+				if (session[:sort] == "title" && val != "title")
+					redirect_to movies_path(:sort => session[:sort], :ratings => params[:ratings])
 				end
 			elsif (session[:ratings])
 				@movies = Movie.where(:rating => @selected_ratings).order(:title)
-				if(session[:sort]=="title")
-				redirect_to movies_path(:sort => session[:sort],:ratings => session[:ratings])
+				if (session[:sort] == "title")
+					redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
 				else
-				redirect_to movies_path(:sort => params[:sort],:ratings => session[:ratings])
+					redirect_to movies_path(:sort => params[:sort], :ratings => session[:ratings])
 				end
 			else
       	@movies = Movie.order(:title)
@@ -43,24 +43,24 @@ class MoviesController < ApplicationController
 			end
       @title_header = "hilite"
 			session[:sort] = "title"
-    elsif ((val == "release_date" ) || (session[:sort]=="release_date" && val!="title"))
+    elsif ((val == "release_date" ) || (session[:sort] == "release_date" && val != "title"))
 			if (params[:ratings])
         @movies = Movie.where(:rating => @selected_ratings).order(:release_date)
         session[:ratings] = params[:ratings]
 				@selected_ratings = params[:ratings].keys
-				if(session[:sort]=="release_date" && val!="release_date")
-				redirect_to movies_path(:sort => session[:sort],:ratings => params[:ratings])
+				if(session[:sort] == "release_date" && val != "release_date")
+					redirect_to movies_path(:sort => session[:sort], :ratings => params[:ratings])
 				end
 			elsif (session[:ratings])
 				@movies = Movie.where(:rating => @selected_ratings).order(:release_date)
-				if(session[:sort]=="release_date")
-				redirect_to movies_path(:sort => session[:sort],:ratings => session[:ratings])
+				if (session[:sort] == "release_date")
+					redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
 				else
-				redirect_to movies_path(:sort => params[:sort],:ratings => session[:ratings])
+					redirect_to movies_path(:sort => params[:sort], :ratings => session[:ratings])
 				end
 			else
       	@movies = Movie.order(:release_date)
-				if (session[:sort] && val!="release_date")
+				if (session[:sort] && val != "release_date")
 					redirect_to movies_path(:sort => "release_date")
 				end 
 			end
